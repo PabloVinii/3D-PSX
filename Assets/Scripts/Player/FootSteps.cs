@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementEffects : MonoBehaviour
+public class FootSteps : MonoBehaviour
 {
     private CharacterController characterController;
     private PlayerController playerController;
     private Vector3 initialCameraPosition;
-
-    [Header("Head Bobbing")]
-    public Transform cameraHolder;
-    public float headBobFrequency = 5f;
-    public float headBobAmplitude = 0.05f;
-    private float headBobOffset = 0f;
 
     [Header("Footsteps")]
     public AudioSource footstepAudioSource;
@@ -26,30 +20,12 @@ public class PlayerMovementEffects : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
-    private void Start()
-    {
-        initialCameraPosition = cameraHolder.localPosition;
-    }
 
     private void Update()
     {
-        CalculateHeadBobbing();
         PlayFootstepSounds();
     }
 
-    private void CalculateHeadBobbing()
-    {
-        float headBobSpeed = characterController.velocity.magnitude * headBobFrequency;
-        headBobOffset += headBobSpeed * Time.deltaTime;
-
-        float bobFactor = Mathf.Sin(headBobOffset) * headBobAmplitude;
-
-        Vector3 cameraPosition = initialCameraPosition;
-        cameraPosition.y += bobFactor;
-        cameraHolder.localPosition = cameraPosition;
-    }
-
-    
     private void PlayFootstepSounds()
     {
         if (characterController.isGrounded && characterController.velocity.magnitude > 0.1f)
