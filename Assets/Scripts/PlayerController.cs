@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     public CharacterStance playerProneStance;
     private float stanceCheckErrorMargin = 0.05f;
 
-    private float cameraHeight;
+    public float cameraHeight;
     private float cameraHeightVelocity;
 
     private Vector3 stanceCapsuleCenterVelocity;
