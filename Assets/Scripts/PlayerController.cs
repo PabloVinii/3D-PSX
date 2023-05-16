@@ -6,12 +6,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController characterController;
-    private Inputs defaultInput;
+    public Inputs defaultInput;
     private Vector2 inputMovement;
-    private Vector2 inputView;
-
-    private Vector3 newCameraRotation;
-    private Vector3 newCharacterRotation;
 
     [Header("References")]
     public Transform cameraHolder;
@@ -20,8 +16,6 @@ public class PlayerController : MonoBehaviour
     [Header("Settings")]
     public LayerMask playerMask;
     public PlayerSettingsModel playerSettings;
-    public float viewClampYMin = -70;
-    public float viewClampYMax = 80;
 
     [Header("Gravity")]
     public float gravityAmount;
@@ -54,7 +48,6 @@ public class PlayerController : MonoBehaviour
     private void Awake() {
         defaultInput = new Inputs();
         defaultInput.Character.Movement.performed += e => inputMovement = e.ReadValue<Vector2>();        
-        defaultInput.Character.View.performed += e => inputView = e.ReadValue<Vector2>();        
         defaultInput.Character.Jump.performed += e => Jump();
         defaultInput.Character.Crouch.performed += e => Crouch();
         defaultInput.Character.Prone.performed += e => Prone();
@@ -62,9 +55,6 @@ public class PlayerController : MonoBehaviour
         defaultInput.Character.SprintReleased.performed += e => StopSprinting();
 
         defaultInput.Enable();
-
-        newCameraRotation = cameraHolder.localRotation.eulerAngles;
-        newCharacterRotation = transform.localRotation.eulerAngles;
 
         characterController = GetComponent<CharacterController>();
 
@@ -77,26 +67,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update() 
     {
-        CalculateView();
         CalculateMovement();
         CalculateJump();
         CalculateStance();
-    }
-
-    private void CalculateView()
-    {
-        // Inversão das entradas
-        float invertX = playerSettings.ViewXInverted ? -1f : 1f;
-        float invertY = playerSettings.ViewYInverted ? 1f : -1f;
-
-        // Rotação do personagem apenas no eixo Y
-        newCharacterRotation.y += playerSettings.viewXSensitivity * invertX * inputView.x * Time.fixedDeltaTime;
-        transform.rotation = Quaternion.Euler(0f, newCharacterRotation.y, 0f);
-
-        // Rotação da câmera no eixo X com limite
-        newCameraRotation.x += playerSettings.viewYSensitivity * invertY * inputView.y * Time.fixedDeltaTime;
-        newCameraRotation.x = Mathf.Clamp(newCameraRotation.x, viewClampYMin, viewClampYMax);
-        cameraHolder.localRotation = Quaternion.Euler(newCameraRotation);
     }
 
 

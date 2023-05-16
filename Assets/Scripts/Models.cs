@@ -16,12 +16,8 @@ public static class Models
     [Serializable]
     public class PlayerSettingsModel
     {
-        [Header("View Settings")]
-        [Range(0, 100)] public float viewXSensitivity;
-        [Range(0, 100)] public float viewYSensitivity;
 
-        public bool ViewXInverted;
-        public bool ViewYInverted;
+        
 
         [Header("Movement - Walking")]
         [Range(0, 50)] public float walkingForwardSpeed;

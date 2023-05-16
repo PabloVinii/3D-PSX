@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3954966006418767604}
+  - component: {fileID: 8338159196775805715}
   m_Layer: 10
   m_Name: CameraHolder
   m_TagString: Untagged
@@ -63,6 +64,21 @@ Transform:
   m_Father: {fileID: 3954966006461217056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8338159196775805715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954966006418767605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a13dbb30c4df845a1b436530b0d57a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobingVelocity: 0.05
+  bobingForce: 0.1
+  originPoint: 0
 --- !u!1 &3954966006461217066
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +134,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3954966006461217066}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -235,11 +251,11 @@ MonoBehaviour:
     viewYSensitivity: 2
     ViewXInverted: 0
     ViewYInverted: 0
-    walkingForwardSpeed: 2
-    walkingBackwardSpeed: 1
+    walkingForwardSpeed: 4
+    walkingBackwardSpeed: 3
     walkingStrafeSpeed: 2
-    runningForwardSpeed: 4
-    runningStrafeSpeed: 4
+    runningForwardSpeed: 8
+    runningStrafeSpeed: 8
     sprintingHold: 1
     movementSmoothing: 0.05
     jumpingHeight: 8
