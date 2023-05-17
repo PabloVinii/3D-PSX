@@ -13,6 +13,7 @@ public class FootSteps : MonoBehaviour
     public AudioClip[] footstepSounds;
     public float footstepInterval = 0.5f;
     private float footstepTimer = 0f;
+    public float footstepVolume = 1f;
 
     private void Awake()
     {
@@ -37,7 +38,7 @@ public class FootSteps : MonoBehaviour
                 if (footstepSounds.Length > 0)
                 {
                     int randomIndex = Random.Range(0, footstepSounds.Length);
-                    footstepAudioSource.PlayOneShot(footstepSounds[randomIndex]);
+                    footstepAudioSource.PlayOneShot(footstepSounds[randomIndex], footstepVolume);
                 }
 
                 footstepTimer = 0f;

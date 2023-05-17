@@ -449,7 +449,9 @@ MonoBehaviour:
   footstepAudioSource: {fileID: 1079037126}
   footstepSounds:
   - {fileID: 8300000, guid: b2a10e9014da74046903db8174724377, type: 3}
+  - {fileID: 8300000, guid: 21fbc8214b238b84bbeb8f56d70b49e4, type: 3}
   footstepInterval: 0.5
+  footstepVolume: 0.3
 --- !u!4 &2057065726 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5941697308095979401, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
