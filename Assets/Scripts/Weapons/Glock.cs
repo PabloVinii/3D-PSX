@@ -7,7 +7,12 @@ public class Glock : MonoBehaviour
     private Animator anim;
     private bool isFiring;
     private RaycastHit hit;
-
+    
+    [SerializeField] private GameObject impactEffect;
+    [SerializeField] private GameObject bulletHole;
+    [SerializeField] private GameObject smokeEffect;
+    [SerializeField] private GameObject ShootEffect;
+    [SerializeField] private GameObject ShootEffectPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -37,8 +42,13 @@ public class Glock : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenX, screenY));
         anim.Play("FirePistol");
 
+        GameObject shootEffectObj = Instantiate(ShootEffect, ShootEffectPosition.transform.position, ShootEffectPosition.transform.rotation);
+        shootEffectObj.transform.parent = ShootEffectPosition.transform;
+
         if (Physics.SphereCast(ray, 0.1f, out hit))
         {
+            InstantiateEffects();
+
             if (hit.transform.tag == "DragObject")
             {
                 Vector3 bulletDir = ray.direction;
@@ -52,4 +62,11 @@ public class Glock : MonoBehaviour
         isFiring = false;
     }
 
+    private void InstantiateEffects()
+    {
+        Instantiate(impactEffect, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+        Instantiate(smokeEffect, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+        GameObject holeObj = Instantiate(bulletHole, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+        holeObj.transform.parent = hit.transform;
+    }
 }
