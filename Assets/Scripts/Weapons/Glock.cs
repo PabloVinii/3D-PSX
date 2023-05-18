@@ -1,40 +1,47 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Glock : MonoBehaviour
 {
+    [Header("Input Settings")]
+    private PlayerController pc;
+    private Inputs defaultInput;
+
     private Animator anim;
-    private bool isFiring;
     private RaycastHit hit;
+    private bool isFiring;
     
+    [Header("Fire Effects")]
     [SerializeField] private GameObject impactEffect;
     [SerializeField] private GameObject bulletHole;
     [SerializeField] private GameObject smokeEffect;
     [SerializeField] private GameObject ShootEffect;
     [SerializeField] private GameObject ShootEffectPosition;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake() 
     {
-        isFiring = false;
-        anim = GetComponent<Animator>();
+        pc = GetComponentInParent<PlayerController>(); 
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (Input.GetButtonDown("Fire1"))
+        anim = GetComponent<Animator>();
+        defaultInput = pc.defaultInput;
+        defaultInput.Character.LeftClick.performed += e => FireWeapon();
+        isFiring = false;
+        
+    }
+
+    private void FireWeapon()
+    {
+        if (!isFiring)
         {
-            if (!isFiring)
-            {
-                isFiring = true;
-                StartCoroutine(Fire());
-            }
+            isFiring = true;
+            StartCoroutine(FireRoutine());
         }
     }
 
-    IEnumerator Fire()
+    private IEnumerator FireRoutine()
     {
         float screenX = Screen.width / 2;
         float screenY = Screen.height / 2;
