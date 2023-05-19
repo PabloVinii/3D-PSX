@@ -563,6 +563,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5941697307915847625, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: playerSettings.maxStamina
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941697307915847625, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: playerSettings.staminaCost
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941697307915847625, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: playerSettings.sprintingHold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941697307915847625, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: playerSettings.staminaRecovery
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941697307915847625, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: playerSettings.fallingSpeedEffector
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5941697307915847627, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
       propertyPath: m_Name
       value: Player

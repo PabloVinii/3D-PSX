@@ -41,13 +41,15 @@ public class PlayerController : MonoBehaviour
     private float stanceCapsuleHeightVelocity;
 
     private bool isSprinting;
+    [SerializeField] private float currentStamina;
 
     private Vector3 newMovementSpeed;
     private Vector3 newMovementSpeedVelocity;
 
-    private void Awake() {
+    private void Awake()
+    {
         defaultInput = new Inputs();
-        defaultInput.Character.Movement.performed += e => inputMovement = e.ReadValue<Vector2>();        
+        defaultInput.Character.Movement.performed += e => inputMovement = e.ReadValue<Vector2>();
         defaultInput.Character.Jump.performed += e => Jump();
         defaultInput.Character.Crouch.performed += e => Crouch();
         defaultInput.Character.Prone.performed += e => Prone();
@@ -62,16 +64,17 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        currentStamina = playerSettings.maxStamina;
     }
 
-
-    private void Update() 
+    private void Update()
     {
         CalculateMovement();
         CalculateJump();
         CalculateStance();
+        UpdateStamina();
     }
-
 
     private void CalculateMovement()
     {
@@ -79,19 +82,20 @@ public class PlayerController : MonoBehaviour
         {
             isSprinting = false;
         }
-    
-        var verticalSpeed = playerSettings.walkingForwardSpeed;
-        var horizontalSpeed = playerSettings.walkingStrafeSpeed;
 
-        if (isSprinting)
+        float verticalSpeed = playerSettings.walkingForwardSpeed;
+        float horizontalSpeed = playerSettings.walkingStrafeSpeed;
+
+        if (isSprinting && currentStamina >= 0.1f)
         {
             verticalSpeed = playerSettings.runningForwardSpeed;
             horizontalSpeed = playerSettings.runningStrafeSpeed;
+            currentStamina -= playerSettings.staminaCost * Time.deltaTime;
         }
 
         if (!characterController.isGrounded)
         {
-            playerSettings.speedEffector = playerSettings.FallingSpeedEffector;
+            playerSettings.speedEffector = playerSettings.fallingSpeedEffector;
         }
         else if (playerStance == PlayerStance.Crouch)
         {
@@ -105,25 +109,23 @@ public class PlayerController : MonoBehaviour
         {
             playerSettings.speedEffector = 1;
         }
-        //Effectors
+
         verticalSpeed *= playerSettings.speedEffector;
         horizontalSpeed *= playerSettings.speedEffector;
 
-        newMovementSpeed = Vector3.SmoothDamp(newMovementSpeed, new Vector3(horizontalSpeed * inputMovement.x * Time.deltaTime, 0, verticalSpeed * inputMovement.y * Time.deltaTime), 
+        newMovementSpeed = Vector3.SmoothDamp(newMovementSpeed, new Vector3(horizontalSpeed * inputMovement.x * Time.deltaTime, 0, verticalSpeed * inputMovement.y * Time.deltaTime),
             ref newMovementSpeedVelocity, characterController.isGrounded ? playerSettings.movementSmoothing : playerSettings.fallingSmoothing);
-        var movementSpeed = transform.TransformDirection(newMovementSpeed);
+        Vector3 movementSpeed = transform.TransformDirection(newMovementSpeed);
 
         if (playerGravity > gravityMin)
         {
             playerGravity -= gravityAmount * Time.deltaTime;
         }
 
-
         if (playerGravity < -0.1f && characterController.isGrounded)
         {
             playerGravity = -0.1f;
         }
-
 
         movementSpeed.y += playerGravity;
         movementSpeed += jumpingForce * Time.deltaTime;
@@ -160,7 +162,6 @@ public class PlayerController : MonoBehaviour
         characterController.height = Mathf.SmoothDamp(characterController.height, targetHeight, ref stanceCapsuleHeightVelocity, playerStanceSmoothing);
         characterController.center = Vector3.SmoothDamp(characterController.center, targetCenter, ref stanceCapsuleCenterVelocity, playerStanceSmoothing);
     }
-
 
     private void Jump()
     {
@@ -200,7 +201,7 @@ public class PlayerController : MonoBehaviour
         jumpingForce = Vector3.up * playerSettings.jumpingHeight;
         playerGravity = 0;
     }
-  
+
     private void Crouch()
     {
         if (playerStance == PlayerStance.Crouch)
@@ -228,7 +229,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void Prone()
     {
         playerStance = PlayerStance.Prone;
@@ -244,16 +244,18 @@ public class PlayerController : MonoBehaviour
         return Physics.CheckCapsule(capsuleStart, capsuleEnd, characterController.radius, playerMask);
     }
 
-
     private void ToggleSprinting()
     {
-        if (inputMovement.y <= 0.2f)
+        if (playerStance == PlayerStance.Stand)
         {
-            isSprinting = false;
-            return;
-        }
+            if (inputMovement.y <= 0.2f)
+            {
+                isSprinting = false;
+                return;
+            }
 
-        isSprinting = !isSprinting;
+            isSprinting = !isSprinting;
+        }  
     }
 
     private void StopSprinting()
@@ -261,8 +263,16 @@ public class PlayerController : MonoBehaviour
         // Verifica se a configuração de sprint contínuo está desativada
         if (!playerSettings.sprintingHold)
         {
-            isSprinting = false;        
+            isSprinting = false;
         }
     }
 
+    private void UpdateStamina()
+    {
+        if (!isSprinting && currentStamina < playerSettings.maxStamina)
+        {
+            currentStamina += playerSettings.staminaRecovery * Time.deltaTime;
+            currentStamina = Mathf.Clamp(currentStamina, 0, playerSettings.maxStamina);
+        }
+    }
 }

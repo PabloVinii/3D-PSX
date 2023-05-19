@@ -28,6 +28,11 @@ public static class Models
         [Range(0, 100)] public float runningForwardSpeed;
         [Range(0, 100)] public float runningStrafeSpeed;
 
+        [Header("Stamina")]
+        [Range(0, 100)] public float maxStamina;
+        [Range(0, 100)] public float staminaRecovery;
+        [Range(0, 100)] public float staminaCost;
+
         [Header("Movement Settings")]
         public bool sprintingHold;
         public float movementSmoothing;
@@ -41,7 +46,7 @@ public static class Models
         [Range(0, 5)] public float speedEffector = 1;
         [Range(0, 5)] public float crouchSpeedEffector;
         [Range(0, 5)] public float proneSpeedEffector;
-        [Range(0, 5)] public float FallingSpeedEffector;
+        [Range(0, 5)] public float fallingSpeedEffector;
     }
 
     [Serializable]
