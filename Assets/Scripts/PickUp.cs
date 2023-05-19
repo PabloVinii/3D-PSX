@@ -18,12 +18,15 @@ public class PickUp : MonoBehaviour
     //Reference to script which includes mouse movement of player (looking around)
     //we want to disable the player looking around when rotating the object
     //example below 
-    MouseLook mouseLookScript;
+    private MouseLook mouseLookScript;
+    private WeaponMovement weaponMovement;  
+  
     void Start()
     {
         LayerNumber = LayerMask.NameToLayer("holdLayer"); //if your holdLayer is named differently make sure to change this ""
 
         mouseLookScript = player.GetComponent<MouseLook>();
+        weaponMovement = GetComponentInChildren<WeaponMovement>();
 
         originalYvalue = mouseLookScript.viewYSensitivity;
         originalXvalue = mouseLookScript.viewXSensitivity;
@@ -81,7 +84,7 @@ public class PickUp : MonoBehaviour
         }
     }
     void DropObject()
-    {
+    { 
         //re-enable collision with player
         Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
         heldObj.layer = 0; //object assigned back to default layer
@@ -99,6 +102,7 @@ public class PickUp : MonoBehaviour
         
         if (Input.GetKey(KeyCode.R))//hold R key to rotate, change this to whatever key you want
         {
+            weaponMovement.enabled = false;
             canDrop = false; //make sure throwing can't occur during rotating
 
             //disable player being able to look around
@@ -114,6 +118,7 @@ public class PickUp : MonoBehaviour
         else
         {
             //re-enable player being able to look around
+            weaponMovement.enabled = true;
             mouseLookScript.viewYSensitivity = originalYvalue;
             mouseLookScript.viewXSensitivity = originalXvalue;
             canDrop = true;
