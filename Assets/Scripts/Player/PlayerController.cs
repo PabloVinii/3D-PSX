@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private float stanceCapsuleHeightVelocity;
 
     private bool isSprinting;
-    [SerializeField] private float currentStamina;
+    public float currentStamina;
 
     private Vector3 newMovementSpeed;
     private Vector3 newMovementSpeedVelocity;
