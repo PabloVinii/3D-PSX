@@ -18,7 +18,13 @@ public class Glock : MonoBehaviour
     [SerializeField] private GameObject ShootEffect;
     [SerializeField] private GameObject ShootEffectPosition;
 
-    private AudioSource fireSound;
+    [Header("Audios")]
+    private AudioSource glockSound;
+    [SerializeField] private AudioClip[] glockAudios;
+
+    [Header("Ammo")]
+    [SerializeField] private int ammo = 17;
+    [SerializeField] private int maxAmmo = 17;
 
     private void Awake() 
     {
@@ -28,7 +34,7 @@ public class Glock : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
-        fireSound = GetComponent<AudioSource>();
+        glockSound = GetComponent<AudioSource>();
         defaultInput = pc.defaultInput;
         defaultInput.Character.LeftClick.performed += e => FireWeapon();
         defaultInput.Weapon.Reload.performed += e => ReloadWeapon();
@@ -37,11 +43,18 @@ public class Glock : MonoBehaviour
 
     private void FireWeapon()
     {
-        if (!isFiring && !anim.GetBool("onAction"))
+        if (!isFiring && ammo > 0 && !anim.GetBool("onAction"))
         {
-            fireSound.Play();
+            ammo--;
+            glockSound.clip = glockAudios[0];
+            glockSound.Play();
             isFiring = true;
             StartCoroutine(FireRoutine());
+        }
+        else if (!isFiring && ammo == 0)
+        {
+            glockSound.clip = glockAudios[1];
+            glockSound.Play();
         }
     }
 
@@ -74,19 +87,46 @@ public class Glock : MonoBehaviour
         isFiring = false;
     }
 
-    private void ReloadWeapon()
-    {
-        if (!isFiring && !anim.GetBool("onAction"))
-        {
-            anim.Play("ReloadPistol");
-        }
-    }
-
     private void InstantiateEffects()
     {
         Instantiate(impactEffect, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
         Instantiate(smokeEffect, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
         GameObject holeObj = Instantiate(bulletHole, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
         holeObj.transform.parent = hit.transform;
+    }
+
+    private void ReloadWeapon()
+    {
+        if (!isFiring &&  ammo < maxAmmo && !anim.GetBool("onAction"))
+        {
+            if (ammo == 0)
+            {
+                anim.Play("ReloadPistol");
+                ammo = maxAmmo;
+            }
+            else
+            {
+                anim.Play("ReloadWithAmmoPistol");
+                ammo = maxAmmo;
+            }
+            
+        }
+    }
+
+    private void UnloadMagSound()
+    {
+        glockSound.clip = glockAudios[2];
+        glockSound.Play();
+    }
+    private void LoadMagSound()
+    {
+        glockSound.clip = glockAudios[3];
+        glockSound.Play();
+    }
+
+    private void SliderSound()
+    {
+        glockSound.clip = glockAudios[4];
+        glockSound.Play();
     }
 }

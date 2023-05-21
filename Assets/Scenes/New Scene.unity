@@ -815,6 +815,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2110549253, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: ammo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110549253, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: glockAudios.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110549253, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: glockAudios.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 8d8288067468d674caa2560df6bb1b58, type: 3}
+    - target: {fileID: 2110549253, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: glockAudios.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: dbbb48ce522accd4da47e66c32da9ee7, type: 3}
+    - target: {fileID: 2110549253, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: glockAudios.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f24a6c83b971454f8b16b1f2a1f6d77, type: 3}
+    - target: {fileID: 2110549253, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: glockAudios.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7137af207c7f592449c6182a643feadf, type: 3}
+    - target: {fileID: 2110549253, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: glockAudios.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b8527304459d364283c1aee950737be, type: 3}
     - target: {fileID: 5941697307915847602, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
       propertyPath: m_RootOrder
       value: 4
