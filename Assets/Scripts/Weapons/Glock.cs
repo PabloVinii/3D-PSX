@@ -18,6 +18,8 @@ public class Glock : MonoBehaviour
     [SerializeField] private GameObject ShootEffect;
     [SerializeField] private GameObject ShootEffectPosition;
 
+    private AudioSource fireSound;
+
     private void Awake() 
     {
         pc = GetComponentInParent<PlayerController>(); 
@@ -26,16 +28,18 @@ public class Glock : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
+        fireSound = GetComponent<AudioSource>();
         defaultInput = pc.defaultInput;
         defaultInput.Character.LeftClick.performed += e => FireWeapon();
-        isFiring = false;
-        
+        defaultInput.Weapon.Reload.performed += e => ReloadWeapon();
+        isFiring = false;   
     }
 
     private void FireWeapon()
     {
-        if (!isFiring)
+        if (!isFiring && !anim.GetBool("onAction"))
         {
+            fireSound.Play();
             isFiring = true;
             StartCoroutine(FireRoutine());
         }
@@ -68,6 +72,14 @@ public class Glock : MonoBehaviour
         }
         yield return new WaitForSeconds(0.3f);
         isFiring = false;
+    }
+
+    private void ReloadWeapon()
+    {
+        if (!isFiring && !anim.GetBool("onAction"))
+        {
+            anim.Play("ReloadPistol");
+        }
     }
 
     private void InstantiateEffects()
