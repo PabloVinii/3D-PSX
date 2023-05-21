@@ -815,6 +815,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 45997731, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: verticalIntensity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 45997731, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: playerMovementIntensity
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2110549253, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
       propertyPath: ammo
       value: 1

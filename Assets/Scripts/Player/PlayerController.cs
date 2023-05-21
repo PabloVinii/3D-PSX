@@ -275,4 +275,9 @@ public class PlayerController : MonoBehaviour
             currentStamina = Mathf.Clamp(currentStamina, 0, playerSettings.maxStamina);
         }
     }
+
+    public Vector3 GetMovementSpeed()
+    {
+        return newMovementSpeed;
+    }
 }
