@@ -22,9 +22,10 @@ public class Glock : MonoBehaviour
     private AudioSource glockSound;
     [SerializeField] private AudioClip[] glockAudios;
 
-    [Header("Ammo")]
+    [Header("Weapon Settings")]
     [SerializeField] private int ammo = 17;
     [SerializeField] private int maxAmmo = 17;
+    [SerializeField] private float fireRate = 0.5f;
 
     private void Awake() 
     {
@@ -83,7 +84,7 @@ public class Glock : MonoBehaviour
                 }
             }
         }
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(fireRate);
         isFiring = false;
     }
 
