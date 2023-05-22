@@ -17,6 +17,7 @@ public class Glock : MonoBehaviour
     [SerializeField] private GameObject smokeEffect;
     [SerializeField] private GameObject ShootEffect;
     [SerializeField] private GameObject ShootEffectPosition;
+    [SerializeField] private GameObject bloodParticle;
 
     [Header("Audios")]
     private AudioSource glockSound;
@@ -26,6 +27,7 @@ public class Glock : MonoBehaviour
     [SerializeField] private int ammo = 17;
     [SerializeField] private int maxAmmo = 17;
     [SerializeField] private float fireRate = 0.5f;
+    [SerializeField] private int damage = 20;
 
     private void Awake() 
     {
@@ -73,16 +75,28 @@ public class Glock : MonoBehaviour
         if (Physics.Raycast(new Vector3(ray.origin.x + Random.Range(-0.05f, 0.05f), ray.origin.y + Random.Range(-0.05f, 0.05f)
             , ray.origin.z), Camera.main.transform.forward, out hit))
         {
-            InstantiateEffects();
-
-            if (hit.transform.tag == "DragObject")
+            if (hit.transform.tag == "Enemy")
             {
-                Vector3 bulletDir = ray.direction;
+                hit.transform.GetComponent<Enemy>().DamageEnemy(damage);
+                GameObject instantiateBlood = Instantiate(bloodParticle, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                instantiateBlood.transform.parent = hit.transform;
+            }
+            else
+            {
+                InstantiateEffects();
+
                 if (hit.rigidbody != null)
                 {
-                    hit.rigidbody.AddForceAtPosition(bulletDir * 500, hit.point);
+                    AddForceToObject(ray, 500);
+
                 }
             }
+
+            // if (hit.transform.tag == "DragObject")
+            // {
+            //     
+            //     
+            // }
         }
         yield return new WaitForSeconds(fireRate);
         isFiring = false;
@@ -96,6 +110,11 @@ public class Glock : MonoBehaviour
         holeObj.transform.parent = hit.transform;
     }
 
+    private void AddForceToObject(Ray ray, float force)
+    {
+        Vector3 bulletDir = ray.direction;
+        hit.rigidbody.AddForceAtPosition(bulletDir * 500, hit.point);
+    }
     private void ReloadWeapon()
     {
         if (!isFiring &&  ammo < maxAmmo && !anim.GetBool("onAction"))

@@ -8,12 +8,12 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent navMesh;
     private Animator anim;
     private GameObject player;
-    
+
     [Header("Settings")]
     [SerializeField] private float PlayerDistance;
     [SerializeField] private float AttackDistance;
     [SerializeField] private float velocity = 5f;
-
+    [SerializeField] private int enemyLife = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +52,11 @@ public class Enemy : MonoBehaviour
             anim.ResetTrigger("Attack");
             FixExitRig();
         }
+    }
+
+    public void DamageEnemy(int damage)
+    {
+        enemyLife -= damage;
     }
 
     private void LookToPlayer()
