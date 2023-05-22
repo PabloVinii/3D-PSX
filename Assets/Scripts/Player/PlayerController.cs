@@ -280,4 +280,12 @@ public class PlayerController : MonoBehaviour
     {
         return newMovementSpeed;
     }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("HeadCheck"))
+        {
+            characterController.SimpleMove(transform.forward * 5);
+        }
+    }
 }

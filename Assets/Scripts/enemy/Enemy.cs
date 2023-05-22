@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
         PlayerDistance = Vector3.Distance(transform.position, player.transform.position);
 
         ChasePlayer();
+        LookToPlayer();
     }
 
     private void ChasePlayer()
@@ -38,11 +39,44 @@ public class Enemy : MonoBehaviour
         {
             navMesh.isStopped = true;
             Debug.Log("atacando");
+            anim.SetTrigger("Attack");
+            anim.SetBool("canWalk", false);
+            anim.SetBool("stopAttack", false);
         }
-        else
+        if (PlayerDistance >= 3)
+        {
+            anim.SetBool("stopAttack", true);
+        }
+        if(anim.GetBool("canWalk"))
         {
             navMesh.isStopped = false;
             navMesh.SetDestination(player.transform.position);
+            anim.ResetTrigger("Attack");
         }
     }
+
+    private void LookToPlayer()
+    {
+        Vector3 directionToLook = player.transform.position - transform.position;
+        Quaternion rotate = Quaternion.LookRotation(directionToLook);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotate, Time.deltaTime * 300);
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+    }
+
+    void OnCollisionExit(Collision col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            GetComponent<Rigidbody>().isKinematic = false;
+        }
+    }
+
 }
