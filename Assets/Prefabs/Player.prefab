@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0.2
+  playerMovementIntensity: 4
   smoothValue: 6
   maxValue: 0.2
 --- !u!1 &422633462
@@ -237,7 +238,7 @@ GameObject:
   - component: {fileID: 1079037127}
   m_Layer: 2
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -392,7 +393,10 @@ MonoBehaviour:
     walkingStrafeSpeed: 4
     runningForwardSpeed: 8
     runningStrafeSpeed: 8
-    sprintingHold: 1
+    maxStamina: 100
+    staminaRecovery: 15
+    staminaCost: 20
+    sprintingHold: 0
     movementSmoothing: 0.05
     jumpingHeight: 8
     jumpingFalloff: 0.4
@@ -400,7 +404,7 @@ MonoBehaviour:
     speedEffector: 1
     crouchSpeedEffector: 0.6
     proneSpeedEffector: 0.2
-    FallingSpeedEffector: 0.8
+    fallingSpeedEffector: 1
   gravityAmount: 0.03
   gravityMin: -3
   jumpingForce: {x: 0, y: 0, z: 0}
@@ -416,6 +420,7 @@ MonoBehaviour:
     cameraHeight: -1.3
     stanceCollider: {fileID: 5941697307915847607}
   cameraHeight: 0
+  currentStamina: 0
 --- !u!114 &5941697307915847626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -866,6 +871,111 @@ MonoBehaviour:
   smokeEffect: {fileID: 3126457868495115394, guid: 5bc8ba72d4bd799489b2f6190634937c, type: 3}
   ShootEffect: {fileID: 3126457868495115394, guid: 886586e5c00f99e44b327e5886a5986d, type: 3}
   ShootEffectPosition: {fileID: 1964818517}
+  glockAudios:
+  - {fileID: 8300000, guid: 8d8288067468d674caa2560df6bb1b58, type: 3}
+  - {fileID: 8300000, guid: dbbb48ce522accd4da47e66c32da9ee7, type: 3}
+  - {fileID: 8300000, guid: 4f24a6c83b971454f8b16b1f2a1f6d77, type: 3}
+  - {fileID: 8300000, guid: 7137af207c7f592449c6182a643feadf, type: 3}
+  - {fileID: 8300000, guid: 7b8527304459d364283c1aee950737be, type: 3}
+  ammo: 1
+  maxAmmo: 17
+  fireRate: 0.5
+--- !u!82 &1422171730
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4965438261422805692}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 8d8288067468d674caa2560df6bb1b58, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &5738456081157130246 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5738456080911321149, guid: a35b8c32acba1334b9b31dfe8cdbc9be, type: 3}
