@@ -285,7 +285,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("HeadCheck"))
         {
-            characterController.SimpleMove(transform.forward * 5);
+            characterController.SimpleMove(transform.forward * 1000 * Time.deltaTime);
         }
     }
 }

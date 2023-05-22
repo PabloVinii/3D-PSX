@@ -22,11 +22,8 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    private void FixedUpdate() {
         PlayerDistance = Vector3.Distance(transform.position, player.transform.position);
-
         ChasePlayer();
         LookToPlayer();
     }
@@ -42,6 +39,7 @@ public class Enemy : MonoBehaviour
             anim.SetTrigger("Attack");
             anim.SetBool("canWalk", false);
             anim.SetBool("stopAttack", false);
+            FixEnterRig();
         }
         if (PlayerDistance >= 3)
         {
@@ -52,6 +50,7 @@ public class Enemy : MonoBehaviour
             navMesh.isStopped = false;
             navMesh.SetDestination(player.transform.position);
             anim.ResetTrigger("Attack");
+            FixExitRig();
         }
     }
 
@@ -66,8 +65,7 @@ public class Enemy : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            GetComponent<Rigidbody>().isKinematic = true;
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            FixEnterRig();
         }
     }
 
@@ -75,8 +73,19 @@ public class Enemy : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            GetComponent<Rigidbody>().isKinematic = false;
+            FixExitRig();
         }
+    }
+
+    void FixEnterRig()
+    {
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
+
+    void FixExitRig()
+    {
+        GetComponent<Rigidbody>().isKinematic = false;
     }
 
 }
