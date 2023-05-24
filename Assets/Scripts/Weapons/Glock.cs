@@ -81,6 +81,10 @@ public class Glock : MonoBehaviour
                 {
                     hit.transform.GetComponent<Enemy>().DamageEnemy(damage);
                 }
+                else if (hit.transform.GetComponentInParent<Enemy>())
+                {
+                    hit.transform.GetComponentInParent<Enemy>().DamageEnemy(damage);
+                }
                 GameObject instantiateBlood = Instantiate(bloodParticle, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
                 instantiateBlood.transform.parent = hit.transform;
             }
