@@ -71,6 +71,7 @@ public class Enemy : MonoBehaviour
 
     public void DamageEnemy(int damage)
     {
+        StopWalk();
         enemyLife -= damage;
     }
 
@@ -84,6 +85,7 @@ public class Enemy : MonoBehaviour
     private void StopWalk()
     {
         navMesh.isStopped = true;
+        anim.SetTrigger("takeDamage");
         anim.SetBool("canWalk", false);
     }
 

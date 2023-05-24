@@ -834,52 +834,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4965438261709640327, guid: a35b8c32acba1334b9b31dfe8cdbc9be, type: 3}
   m_PrefabInstance: {fileID: 292241467}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &2110549252
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4965438261422805692}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7b31bcf27e038324a96947408417e763, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
---- !u!114 &2110549253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4965438261422805692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e8d878e803386d438f51fcabb9c645f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impactEffect: {fileID: 7423203385707777643, guid: 782ca934e5a0f404093cd002c97daa2b, type: 3}
-  bulletHole: {fileID: 795939106184328839, guid: 052aaabf5767f2d4abe32eaf28f1e7f3, type: 3}
-  smokeEffect: {fileID: 3126457868495115394, guid: 5bc8ba72d4bd799489b2f6190634937c, type: 3}
-  ShootEffect: {fileID: 3126457868495115394, guid: 886586e5c00f99e44b327e5886a5986d, type: 3}
-  ShootEffectPosition: {fileID: 1964818517}
-  glockAudios:
-  - {fileID: 8300000, guid: 8d8288067468d674caa2560df6bb1b58, type: 3}
-  - {fileID: 8300000, guid: dbbb48ce522accd4da47e66c32da9ee7, type: 3}
-  - {fileID: 8300000, guid: 4f24a6c83b971454f8b16b1f2a1f6d77, type: 3}
-  - {fileID: 8300000, guid: 7137af207c7f592449c6182a643feadf, type: 3}
-  - {fileID: 8300000, guid: 7b8527304459d364283c1aee950737be, type: 3}
-  ammo: 1
-  maxAmmo: 17
-  fireRate: 0.5
 --- !u!82 &1422171730
 AudioSource:
   m_ObjectHideFlags: 0
@@ -976,6 +930,54 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &2110549252
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4965438261422805692}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7b31bcf27e038324a96947408417e763, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &2110549253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4965438261422805692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8d878e803386d438f51fcabb9c645f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impactEffect: {fileID: 7423203385707777643, guid: 782ca934e5a0f404093cd002c97daa2b, type: 3}
+  bulletHole: {fileID: 795939106184328839, guid: 052aaabf5767f2d4abe32eaf28f1e7f3, type: 3}
+  smokeEffect: {fileID: 3126457868495115394, guid: 5bc8ba72d4bd799489b2f6190634937c, type: 3}
+  ShootEffect: {fileID: 3126457868495115394, guid: 886586e5c00f99e44b327e5886a5986d, type: 3}
+  ShootEffectPosition: {fileID: 1964818517}
+  bloodParticle: {fileID: 2922594717242492864, guid: 6e697e10051608141a603872dfe25909, type: 3}
+  glockAudios:
+  - {fileID: 8300000, guid: 8d8288067468d674caa2560df6bb1b58, type: 3}
+  - {fileID: 8300000, guid: dbbb48ce522accd4da47e66c32da9ee7, type: 3}
+  - {fileID: 8300000, guid: 4f24a6c83b971454f8b16b1f2a1f6d77, type: 3}
+  - {fileID: 8300000, guid: 7137af207c7f592449c6182a643feadf, type: 3}
+  - {fileID: 8300000, guid: 7b8527304459d364283c1aee950737be, type: 3}
+  ammo: 17
+  maxAmmo: 17
+  fireRate: 0.5
+  damage: 20
 --- !u!4 &5738456081157130246 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5738456080911321149, guid: a35b8c32acba1334b9b31dfe8cdbc9be, type: 3}
