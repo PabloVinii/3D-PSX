@@ -14,12 +14,17 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float AttackDistance;
     [SerializeField] private float velocity = 5f;
     [SerializeField] private int enemyLife = 100;
+    EnemyRagdoll ragdollScript;
+
     // Start is called before the first frame update
     void Start()
     {
         navMesh = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
         anim = GetComponent<Animator>();
+        ragdollScript = GetComponent<EnemyRagdoll>();
+
+       ragdollScript.IniciaRagdoll();
     }
 
     private void FixedUpdate() {
@@ -84,13 +89,13 @@ public class Enemy : MonoBehaviour
 
     void FixEnterRig()
     {
-        GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
+       ragdollScript.rigid.GetComponent<Rigidbody>().isKinematic = true;
+       ragdollScript.rigid.velocity = Vector3.zero;
     }
 
     void FixExitRig()
     {
-        GetComponent<Rigidbody>().isKinematic = false;
+        ragdollScript.rigid.isKinematic = false;
     }
 
 }
