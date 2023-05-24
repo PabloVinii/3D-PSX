@@ -77,7 +77,10 @@ public class Glock : MonoBehaviour
         {
             if (hit.transform.tag == "Enemy")
             {
-                hit.transform.GetComponent<Enemy>().DamageEnemy(damage);
+                if (hit.transform.GetComponent<Enemy>())
+                {
+                    hit.transform.GetComponent<Enemy>().DamageEnemy(damage);
+                }
                 GameObject instantiateBlood = Instantiate(bloodParticle, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
                 instantiateBlood.transform.parent = hit.transform;
             }
@@ -91,12 +94,6 @@ public class Glock : MonoBehaviour
 
                 }
             }
-
-            // if (hit.transform.tag == "DragObject")
-            // {
-            //     
-            //     
-            // }
         }
         yield return new WaitForSeconds(fireRate);
         isFiring = false;

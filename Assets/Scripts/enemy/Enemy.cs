@@ -14,23 +14,33 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float AttackDistance;
     [SerializeField] private float velocity = 5f;
     [SerializeField] private int enemyLife = 100;
-    EnemyRagdoll ragdollScript;
+    private EnemyRagdoll ragdollScript;
+    public bool isDead;
 
     // Start is called before the first frame update
     void Start()
     {
+        isDead = false;
         navMesh = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
         anim = GetComponent<Animator>();
         ragdollScript = GetComponent<EnemyRagdoll>();
 
-       ragdollScript.IniciaRagdoll();
+       ragdollScript.DisableRagdoll();
     }
 
     private void FixedUpdate() {
         PlayerDistance = Vector3.Distance(transform.position, player.transform.position);
         ChasePlayer();
         LookToPlayer();
+
+        if (enemyLife <= 0 && !isDead)
+        {
+            isDead = true;
+            StopWalk();
+            ragdollScript.StartRagdoll();
+            this.enabled = false;
+        }
     }
 
     private void ChasePlayer()
@@ -69,6 +79,12 @@ public class Enemy : MonoBehaviour
         Vector3 directionToLook = player.transform.position - transform.position;
         Quaternion rotate = Quaternion.LookRotation(directionToLook);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotate, Time.deltaTime * 300);
+    }
+
+    private void StopWalk()
+    {
+        navMesh.isStopped = true;
+        anim.SetBool("canWalk", false);
     }
 
     void OnCollisionEnter(Collision col)

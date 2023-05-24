@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyRagdoll : MonoBehaviour
 {
-    List<Rigidbody> ragdollRigids = new List<Rigidbody>();
+    private List<Rigidbody> ragdollRigids = new List<Rigidbody>();
     public Rigidbody rigid;
-    List<Collider> ragdollColliders = new List<Collider>();
+    private List<Collider> ragdollColliders = new List<Collider>();
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,7 @@ public class EnemyRagdoll : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void IniciaRagdoll()
+    public void DisableRagdoll()
     {
         Rigidbody[] rigs = GetComponentsInChildren<Rigidbody>();
 
@@ -33,5 +33,25 @@ public class EnemyRagdoll : MonoBehaviour
             col.isTrigger = true;
             ragdollColliders.Add(col);
         }
+    }
+
+    public void StartRagdoll()
+    {
+        for (int i = 0; i < ragdollRigids.Count; i++)
+        {
+            ragdollRigids[i].isKinematic = false;
+            ragdollColliders[i].isTrigger = false;
+        }
+
+        rigid.isKinematic = true;
+        GetComponent<CapsuleCollider>().isTrigger = true;
+        StartCoroutine("FinishAnimation");
+    }
+
+    IEnumerator FinishAnimation()
+    {
+        yield return new WaitForEndOfFrame();
+        GetComponent<Animator>().enabled = false;
+        this.enabled = false;
     }
 }

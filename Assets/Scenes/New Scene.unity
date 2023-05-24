@@ -1266,6 +1266,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2110549253, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
+      propertyPath: ammo
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110549253, guid: 013d6b556732985478aaeb4ecee89f8f, type: 3}
       propertyPath: bloodParticle
       value: 
       objectReference: {fileID: 2922594717242492864, guid: 6e697e10051608141a603872dfe25909, type: 3}
@@ -2348,9 +2352,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2950630380894061175, guid: 477fca80ca2df5a42b4850b71a1498f4, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006661503994827154, guid: 477fca80ca2df5a42b4850b71a1498f4, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8413861792726330809, guid: 477fca80ca2df5a42b4850b71a1498f4, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648427963555247702, guid: 477fca80ca2df5a42b4850b71a1498f4, type: 3}
+      propertyPath: enemyLife
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 9191805145164248835, guid: 477fca80ca2df5a42b4850b71a1498f4, type: 3}
       propertyPath: m_RootOrder
