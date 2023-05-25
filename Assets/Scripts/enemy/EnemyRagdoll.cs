@@ -41,6 +41,7 @@ public class EnemyRagdoll : MonoBehaviour
         {
             ragdollRigids[i].isKinematic = false;
             ragdollColliders[i].enabled = true;
+            ragdollRigids[i].transform.gameObject.layer = 11;
         }
 
         rigid.isKinematic = true;
