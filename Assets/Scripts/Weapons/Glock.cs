@@ -77,7 +77,11 @@ public class Glock : MonoBehaviour
         {
             if (hit.transform.tag == "Enemy")
             {
-                if (hit.transform.GetComponent<Enemy>())
+                if (hit.rigidbody != null && hit.transform.GetComponentInParent<Enemy>().isDead)
+                {
+                    AddForceToObject(ray, 900);
+                }
+                else if (hit.transform.GetComponent<Enemy>())
                 {
                     hit.transform.GetComponent<Enemy>().DamageEnemy(damage);
                 }

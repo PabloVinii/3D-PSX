@@ -8,12 +8,15 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent navMesh;
     private Animator anim;
     private GameObject player;
+    public GameObject objHeadDetector;
 
     [Header("Settings")]
     [SerializeField] private float PlayerDistance;
     [SerializeField] private float AttackDistance;
     [SerializeField] private float velocity = 5f;
     [SerializeField] private int enemyLife = 100;
+    [SerializeField] private int enemyDamage = 25;
+    
     private EnemyRagdoll ragdollScript;
     public bool isDead;
 
@@ -30,17 +33,21 @@ public class Enemy : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        PlayerDistance = Vector3.Distance(transform.position, player.transform.position);
-        ChasePlayer();
-        LookToPlayer();
-
-        if (enemyLife <= 0 && !isDead)
+        if (!isDead)
         {
-            isDead = true;
-            StopWalk();
-            ragdollScript.StartRagdoll();
-            this.enabled = false;
-        }
+            PlayerDistance = Vector3.Distance(transform.position, player.transform.position);
+            ChasePlayer();
+            LookToPlayer();
+
+            if (enemyLife <= 0 && !isDead)
+            {
+                objHeadDetector.SetActive(false);
+                isDead = true;
+                StopWalk();
+                navMesh.enabled = false;
+                ragdollScript.StartRagdoll();
+            }
+        } 
     }
 
     private void ChasePlayer()
@@ -69,6 +76,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void DamagePlayer()
+    {
+        //player.GetComponent<PlayerController>().health -= enemyDamage;
+    }
+
     public void DamageEnemy(int damage)
     {
         StopWalk();
@@ -87,6 +99,7 @@ public class Enemy : MonoBehaviour
         navMesh.isStopped = true;
         anim.SetTrigger("takeDamage");
         anim.SetBool("canWalk", false);
+        FixEnterRig();
     }
 
     void OnCollisionEnter(Collision col)
