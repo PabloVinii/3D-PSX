@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     
     private EnemyRagdoll ragdollScript;
     public bool isDead;
+    //public bool rageMode;
 
     // Start is called before the first frame update
     void Start()
@@ -83,7 +84,15 @@ public class Enemy : MonoBehaviour
 
     public void DamageEnemy(int damage)
     {
-        StopWalk();
+        int chance;
+
+        chance = Random.Range(0, 10);
+
+        if (chance % 2 == 0)
+        {
+            StopWalk();
+        }
+        
         enemyLife -= damage;
     }
 
