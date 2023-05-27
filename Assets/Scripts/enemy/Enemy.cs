@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     private Animator anim;
     private GameObject player;
     public GameObject objHeadDetector;
+    public AudioClip[] enemySounds;
+    public AudioSource enemyAudioSorce;
 
     [Header("Settings")]
     [SerializeField] private float PlayerDistance;
@@ -29,6 +31,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         anim = GetComponent<Animator>();
         ragdollScript = GetComponent<EnemyRagdoll>();
+        enemyAudioSorce = GetComponent<AudioSource>();
 
        ragdollScript.DisableRagdoll();
     }
@@ -42,6 +45,7 @@ public class Enemy : MonoBehaviour
 
             if (enemyLife <= 0 && !isDead)
             {
+                //EnemySoundDeath();
                 objHeadDetector.SetActive(false);
                 isDead = true;
                 StopWalk();
@@ -138,4 +142,26 @@ public class Enemy : MonoBehaviour
         ragdollScript.rigid.isKinematic = false;
     }
 
+    public void EnemySoundWalk()
+    {
+        enemyAudioSorce.PlayOneShot(enemySounds[0]);
+    }
+
+    public void EnemySoundPain()
+    {
+        enemyAudioSorce.clip = enemySounds[1];
+        enemyAudioSorce.Play();
+    }
+
+    public void EnemySoundScream()
+    {
+        enemyAudioSorce.clip = enemySounds[2];
+        enemyAudioSorce.Play();
+    }
+
+    public void EnemySoundDeath()
+    {
+        enemyAudioSorce.clip = enemySounds[2];
+        enemyAudioSorce.Play();
+    }
 }
