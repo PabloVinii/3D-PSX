@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HeadBobbing : MonoBehaviour
@@ -18,24 +16,26 @@ public class HeadBobbing : MonoBehaviour
 
     private void Start()
     {
-        initialCameraPosition = gameObject.transform.localPosition;
+        initialCameraPosition = transform.localPosition;
     }
 
     private void Update()
     {
         CalculateHeadBobbing();
-        
     }
 
     private void CalculateHeadBobbing()
     {
-        float headBobSpeed = characterController.velocity.magnitude * headBobFrequency;
-        headBobOffset += headBobSpeed * Time.deltaTime;
+        if (characterController.velocity.magnitude < 0.1f)
+        {
+            return;
+        }
 
+        headBobOffset = Mathf.Repeat(headBobOffset + characterController.velocity.magnitude * headBobFrequency * Time.deltaTime, Mathf.PI * 2f);
         float bobFactor = Mathf.Sin(headBobOffset) * headBobAmplitude;
 
         Vector3 cameraPosition = initialCameraPosition;
         cameraPosition.y += bobFactor;
-        gameObject.transform.localPosition = cameraPosition;
+        transform.localPosition = cameraPosition;
     }
 }

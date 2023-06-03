@@ -5,15 +5,15 @@ public class MouseLook : MonoBehaviour
     public Transform cameraHolder;
 
     [Header("View Settings")]
-    [Range(0, 100)] public float viewXSensitivity;
-    [Range(0, 100)] public float viewYSensitivity;
+    [Range(0, 100)] public float viewXSensitivity; // Sensibilidade de rotação no eixo X
+    [Range(0, 100)] public float viewYSensitivity; // Sensibilidade de rotação no eixo Y
 
-    public bool ViewXInverted;
-    public bool ViewYInverted;
+    public bool ViewXInverted; // Indica se a rotação no eixo X está invertida
+    public bool ViewYInverted; // Indica se a rotação no eixo Y está invertida
 
     [Header("Settings")]
-    public float viewClampYMin = -70;
-    public float viewClampYMax = 80;
+    public float viewClampYMin = -70; // Limite mínimo de rotação no eixo Y
+    public float viewClampYMax = 80; // Limite máximo de rotação no eixo Y
 
     private Vector3 newCharacterRotation;
     private Vector3 newCameraRotation;
@@ -21,17 +21,19 @@ public class MouseLook : MonoBehaviour
     private Vector2 inputView;
     private PlayerController pc;
 
-    private void Awake() {
-        pc = GetComponent<PlayerController>();        
+    private void Awake()
+    {
+        pc = GetComponent<PlayerController>();
     }
 
-    private void Start() {
+    private void Start()
+    {
         defaultInput = pc.defaultInput;
         defaultInput.Character.View.performed += e => inputView = e.ReadValue<Vector2>();
 
         newCharacterRotation = transform.localRotation.eulerAngles;
     }
-    // Update is called once per frame
+
     void Update()
     {
         CalculateView();
