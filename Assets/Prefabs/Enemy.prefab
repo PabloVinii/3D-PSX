@@ -2792,8 +2792,8 @@ GameObject:
   - component: {fileID: 8648427963555247697}
   - component: {fileID: 8648427963555247696}
   - component: {fileID: 8648427963555247702}
-  - component: {fileID: 8648427963555247703}
   - component: {fileID: 455278150}
+  - component: {fileID: 8648427963555247703}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -2882,12 +2882,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objHeadDetector: {fileID: 8648427963289413746}
+  enemySounds: []
+  enemyAudioSorce: {fileID: 0}
   PlayerDistance: 0
   AttackDistance: 2
   velocity: 5
   enemyLife: 100
   enemyDamage: 25
   isDead: 0
+--- !u!114 &455278150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8413861792726330809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 128d6d569399ecc45b79ba34e483d5a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigid: {fileID: 0}
 --- !u!195 &8648427963555247703
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2910,19 +2925,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &455278150
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8413861792726330809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 128d6d569399ecc45b79ba34e483d5a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigid: {fileID: 0}
 --- !u!1 &8648427963289413746
 GameObject:
   m_ObjectHideFlags: 0

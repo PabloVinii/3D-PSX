@@ -234,8 +234,8 @@ GameObject:
   - component: {fileID: 5941697307915847624}
   - component: {fileID: 5941697307915847625}
   - component: {fileID: 5941697307915847626}
-  - component: {fileID: 1079037126}
   - component: {fileID: 1079037127}
+  - component: {fileID: 1079037126}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -440,6 +440,24 @@ MonoBehaviour:
   ViewYInverted: 0
   viewClampYMin: -70
   viewClampYMax: 80
+--- !u!114 &1079037127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5941697307915847627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b689c0f27106e0d4cabded9d9989cfab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepAudioSource: {fileID: 1079037126}
+  footstepSounds:
+  - {fileID: 8300000, guid: b2a10e9014da74046903db8174724377, type: 3}
+  - {fileID: 8300000, guid: 21fbc8214b238b84bbeb8f56d70b49e4, type: 3}
+  footstepInterval: 0.5
+  footstepVolume: 0.3
 --- !u!82 &1079037126
 AudioSource:
   m_ObjectHideFlags: 0
@@ -536,24 +554,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1079037127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5941697307915847627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b689c0f27106e0d4cabded9d9989cfab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  footstepAudioSource: {fileID: 1079037126}
-  footstepSounds:
-  - {fileID: 8300000, guid: b2a10e9014da74046903db8174724377, type: 3}
-  - {fileID: 8300000, guid: 21fbc8214b238b84bbeb8f56d70b49e4, type: 3}
-  footstepInterval: 0.5
-  footstepVolume: 0.3
 --- !u!1 &5941697308095979402
 GameObject:
   m_ObjectHideFlags: 0

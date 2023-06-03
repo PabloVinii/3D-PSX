@@ -7,7 +7,7 @@ public class RayCastHit : MonoBehaviour
     public float targetDistance;
     public GameObject dragObj; 
     public GameObject takeObj;
-    RaycastHit hit;
+    private RaycastHit hit;
 
     void Start()
     {

@@ -9,18 +9,17 @@ public class FootSteps : MonoBehaviour
     private Vector3 initialCameraPosition;
 
     [Header("Footsteps")]
-    public AudioSource footstepAudioSource;
-    public AudioClip[] footstepSounds;
-    public float footstepInterval = 0.5f;
-    private float footstepTimer = 0f;
-    public float footstepVolume = 1f;
+    public AudioSource footstepAudioSource; // AudioSource responsável pelos sons de passos
+    public AudioClip[] footstepSounds; // Array de sons de passos
+    public float footstepInterval = 0.5f; // Intervalo entre os sons de passos
+    private float footstepTimer = 0f; // Temporizador para controlar o intervalo
+    public float footstepVolume = 1f; // Volume dos sons de passos
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         playerController = GetComponent<PlayerController>();
     }
-
 
     private void Update()
     {
