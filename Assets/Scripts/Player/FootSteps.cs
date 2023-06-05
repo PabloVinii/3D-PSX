@@ -6,7 +6,6 @@ public class FootSteps : MonoBehaviour
 {
     private CharacterController characterController;
     private PlayerController playerController;
-    private Vector3 initialCameraPosition;
 
     [Header("Footsteps")]
     public AudioSource footstepAudioSource; // AudioSource responsável pelos sons de passos

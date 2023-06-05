@@ -2,46 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
 public class Enemy : MonoBehaviour
 {
     [Header("References")]
-    private NavMeshAgent navMesh;
-    private Animator anim;
-    private GameObject player;
-    public GameObject objHeadDetector;
-    public AudioClip[] enemySounds;
-    public AudioSource enemyAudioSorce;
+    [SerializeField] private NavMeshAgent navMesh; // Referência ao NavMeshAgent para navegação
+    [SerializeField] private Animator anim; // Referência ao Animator para controlar as animações
+    [SerializeField] private GameObject player; // Referência ao jogador
+    [SerializeField] private GameObject objHeadDetector; // Objeto detector de colisão com a cabeça
+    [SerializeField] private AudioClip[] enemySounds; // Sons do inimigo
+    [SerializeField] private AudioSource enemyAudioSource; // AudioSource para reproduzir os sons
 
     [Header("Settings")]
-    [SerializeField] private float PlayerDistance;
-    [SerializeField] private float AttackDistance;
-    [SerializeField] private float velocity = 5f;
-    [SerializeField] private int enemyLife = 100;
-    [SerializeField] private int enemyDamage = 25;
-    
-    private EnemyRagdoll ragdollScript;
-    public bool isDead;
+    [SerializeField] private float playerDistance; // Distância para o jogador
+    [SerializeField] private float attackDistance; // Distância para atacar o jogador
+    [SerializeField] private float velocity = 5f; // Velocidade do inimigo
+    [SerializeField] private int enemyLife = 100; // Vida do inimigo
+    [SerializeField] private int enemyDamage = 25; // Dano do inimigo
+
+    private EnemyRagdoll ragdollScript; // Referência ao script EnemyRagdoll para gerenciar o ragdoll
+    public bool isDead; // Flag indicando se o inimigo está morto
     //public bool rageMode;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         isDead = false;
         navMesh = GetComponent<NavMeshAgent>();
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
         ragdollScript = GetComponent<EnemyRagdoll>();
-        enemyAudioSorce = GetComponent<AudioSource>();
+        enemyAudioSource = GetComponent<AudioSource>();
 
-       ragdollScript.DisableRagdoll();
+        ragdollScript.DisableRagdoll(); // Desabilita o ragdoll no início
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         if (!isDead)
         {
-            PlayerDistance = Vector3.Distance(transform.position, player.transform.position);
-            ChasePlayer();
-            LookToPlayer();
+            playerDistance = Vector3.Distance(transform.position, player.transform.position);
+            ChasePlayer(); // Persegue o jogador
+            LookToPlayer(); // Olha na direção do jogador
 
             if (enemyLife <= 0 && !isDead)
             {
@@ -50,7 +51,7 @@ public class Enemy : MonoBehaviour
                 isDead = true;
                 StopWalk();
                 navMesh.enabled = false;
-                ragdollScript.StartRagdoll();
+                ragdollScript.StartRagdoll(); // Inicia o ragdoll ao morrer
             }
         } 
     }
@@ -59,20 +60,19 @@ public class Enemy : MonoBehaviour
     {
         navMesh.speed = velocity;
 
-        if (PlayerDistance < AttackDistance)
+        if (playerDistance < attackDistance)
         {
             navMesh.isStopped = true;
-            Debug.Log("atacando");
             anim.SetTrigger("Attack");
             anim.SetBool("canWalk", false);
             anim.SetBool("stopAttack", false);
             FixEnterRig();
         }
-        if (PlayerDistance >= 3)
+        if (playerDistance >= 3)
         {
             anim.SetBool("stopAttack", true);
         }
-        if(anim.GetBool("canWalk"))
+        if (anim.GetBool("canWalk"))
         {
             navMesh.isStopped = false;
             navMesh.SetDestination(player.transform.position);
@@ -83,14 +83,12 @@ public class Enemy : MonoBehaviour
 
     public void DamagePlayer()
     {
-        //player.GetComponent<PlayerController>().health -= enemyDamage;
+        // player.GetComponent<PlayerController>().health -= enemyDamage;
     }
 
     public void DamageEnemy(int damage)
     {
-        int chance;
-
-        chance = Random.Range(0, 10);
+        int chance = Random.Range(0, 10);
 
         if (chance % 2 == 0)
         {
@@ -115,7 +113,7 @@ public class Enemy : MonoBehaviour
         FixEnterRig();
     }
 
-    void OnCollisionEnter(Collision col)
+    private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
@@ -123,7 +121,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void OnCollisionExit(Collision col)
+    private void OnCollisionExit(Collision col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
@@ -131,37 +129,37 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void FixEnterRig()
+    private void FixEnterRig()
     {
-       ragdollScript.rigid.GetComponent<Rigidbody>().isKinematic = true;
-       ragdollScript.rigid.velocity = Vector3.zero;
+        ragdollScript.rigid.isKinematic = true;
+        ragdollScript.rigid.velocity = Vector3.zero;
     }
 
-    void FixExitRig()
+    private void FixExitRig()
     {
         ragdollScript.rigid.isKinematic = false;
     }
 
     public void EnemySoundWalk()
     {
-        enemyAudioSorce.PlayOneShot(enemySounds[0]);
+        enemyAudioSource.PlayOneShot(enemySounds[0]);
     }
 
     public void EnemySoundPain()
     {
-        enemyAudioSorce.clip = enemySounds[1];
-        enemyAudioSorce.Play();
+        enemyAudioSource.clip = enemySounds[1];
+        enemyAudioSource.Play();
     }
 
     public void EnemySoundScream()
     {
-        enemyAudioSorce.clip = enemySounds[2];
-        enemyAudioSorce.Play();
+        enemyAudioSource.clip = enemySounds[2];
+        enemyAudioSource.Play();
     }
 
     public void EnemySoundDeath()
     {
-        enemyAudioSorce.clip = enemySounds[2];
-        enemyAudioSorce.Play();
+        enemyAudioSource.clip = enemySounds[2];
+        enemyAudioSource.Play();
     }
 }
