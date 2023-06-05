@@ -72,23 +72,22 @@ public class Glock : MonoBehaviour
         GameObject shootEffectObj = Instantiate(ShootEffect, ShootEffectPosition.transform.position, ShootEffectPosition.transform.rotation);
         shootEffectObj.transform.parent = ShootEffectPosition.transform;
 
-        if (Physics.Raycast(new Vector3(ray.origin.x + Random.Range(-0.05f, 0.05f), ray.origin.y + Random.Range(-0.05f, 0.05f)
-            , ray.origin.z), Camera.main.transform.forward, out hit))
+        if (Physics.Raycast(new Vector3(ray.origin.x + Random.Range(-0.05f, 0.05f), ray.origin.y + Random.Range(-0.05f, 0.05f),
+            ray.origin.z), Camera.main.transform.forward, out hit))
         {
-            if (hit.transform.tag == "Enemy")
+            if (hit.transform != null && hit.transform.CompareTag("Enemy"))
             {
-                if (hit.rigidbody != null && hit.transform.GetComponentInParent<Enemy>().isDead)
+                Enemy enemy = hit.transform.GetComponent<Enemy>();
+
+                if (enemy != null && enemy.isDead)
                 {
                     AddForceToObject(ray, 900);
                 }
-                else if (hit.transform.GetComponent<Enemy>())
+                else
                 {
-                    hit.transform.GetComponent<Enemy>().DamageEnemy(damage);
+                    enemy?.DamageEnemy(damage);
                 }
-                else if (hit.transform.GetComponentInParent<Enemy>())
-                {
-                    hit.transform.GetComponentInParent<Enemy>().DamageEnemy(damage);
-                }
+
                 GameObject instantiateBlood = Instantiate(bloodParticle, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
                 instantiateBlood.transform.parent = hit.transform;
             }

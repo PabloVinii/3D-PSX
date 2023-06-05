@@ -2893,7 +2893,7 @@ MonoBehaviour:
   - {fileID: 0}
   enemyAudioSource: {fileID: 0}
   playerDistance: 0
-  attackDistance: 0
+  attackDistance: 3
   velocity: 5
   enemyLife: 100
   enemyDamage: 25
